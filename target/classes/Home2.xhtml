@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form" style="padding-left: 45px;" class="formularioCentro">
+			<div class="ui-grid-row ">
+					<div class="ui-grid-col-4 " style="width:10%">
+						<p:outputLabel value="Codigo Curso:" />
+						<p:inputText
+							value="#{homeController.curso.codigo}"
+							disabled="true" size="10" />
+					</div>
+					<div class="ui-grid-col-4 " style="    width: 33%;">
+						<p:outputLabel value="Nome Curso:" />
+						<p:inputText
+							value="#{homeController.curso.nome}"
+							disabled="true" size="47" />
+					</div>
+					<div class="ui-grid-col-4 " style="    width: 16.33333%;">
+						<p:outputLabel value="Ultima Importação:" />
+						<p:inputText
+							value="#{homeController.curso.dataAtualizacao}"
+							disabled="true" size="20" />
+
+
+					</div>
+				</div>
+				<div class="ui-grid-row espacoLinha ">
+				
+				<div class="ui-grid-col-4 " style="    width: 10%;">
+						<p:outputLabel value="CPF:" />
+						<p:inputText
+							value="#{homeController.login}"
+							 size="10" />
+					</div>
+					
+					<div class="ui-grid-col-4 " style="    width: 11.33333%;    margin-top: 2px;">
+						<p:outputLabel value="Senha:" />
+						<h:inputSecret  id="senha" maxlength="30"
+											value="#{homeController.senha}" pt:placeholder="Senha"
+											 size="15" />
+					</div>
+					
+					<div class="ui-grid-col-4 " style="    width: 10.33333%;">
+						<p:outputLabel value="Cod. Curso Imp.:" />
+						<p:inputText
+							value="#{homeController.codigo}"
+							 size="10" />
+					</div>
+					
+					<div class="ui-grid-col-4 " style="    width: 16%;">
+						<p:outputLabel value="Token:" />
+						<p:inputText
+							value="#{homeController.token}"
+							 size="20" />
+					</div>
+					
+					<div class="ui-grid-col-4 ">
+					<p:commandButton class="btn btn-success btn-sm botao"
+							value="Importar Histórico" actionListener="#{homeController.chamarTudo()}"
+							>
+						</p:commandButton>
+					</div>
+				
+				</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

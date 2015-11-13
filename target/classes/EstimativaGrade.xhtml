@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+
+		<p:growl autoUpdate="true" />
+		<h:form style="padding-left: 45px;" class="formularioCentro">
+			<div class="titulo">
+				<legend>Estimativa Vagas</legend>
+			</div>
+
+			<div class="ui-grid-col-4" style="width: 50%; padding-right: 20px;">
+				
+				<div class="ui-grid-col-6 "
+								style="width: 50%; margin-top: -25px;">
+								<p:outputLabel value="Grades:"></p:outputLabel>
+
+
+								<p:autoComplete id="gradesSelecionadas" multiple="true"
+									forceSelection="true"
+									value="#{visaoGeralController.listagrade}"
+									completeMethod="#{visaoGeralController.gradeCodigos}"
+									styleClass="gradeSelecionadas">
+
+									
+
+								</p:autoComplete>
+							</div>
+				
+				
+			</div>
+
+			
+
+
+
+
+
+			
+
+			<div class="gridTamanho espacoLinha">
+				<div class="ui-grid-col-12 espacoLinha ">
+					<div class="ui-grid ui-grid-responsive">
+
+						<p:dataTable id="estimativas"  >
+						
+						<f:facet name="header">
+			           Disciplinas Obrigatórias
+			       </f:facet>
+						
+						<p:column headerText="Código" style="width: 20%;padding: 0px 10px;">
+
+						
+
+					</p:column>
+						
+						
+						
+						
+						
+						
+						</p:dataTable>
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+
+
+

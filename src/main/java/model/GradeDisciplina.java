@@ -3,75 +3,89 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 
 
 
 @Entity
-//@Table(name="postgres.V_SSF_COLABORADOR_LOTACAO")
+@SequenceGenerator(name="grade_disciplina_sequencia", sequenceName="grade_disciplina_seq", allocationSize=1)
 public class GradeDisciplina {
 	// ==========================VARIÃ�VEIS=================================================================================================================//
-		
-		private String gradeCod;
-		private String disciplinaCod;
-		private String tipoDisciplina;
-		private Long periodo;
-		
+
+	private String tipoDisciplina;
+	private Long periodo;
+	private Disciplina disciplina;
+	private Grade grade;
+	private List<PreRequisito> preRequisito = new ArrayList<PreRequisito>();
+	
+	private Long id;
+
+	// ==========================GETTERS_AND_SETTERS======================================================================================================//
 
 
-		// ==========================MÃ‰TODOS===================================================================================================================//
-		public GradeDisciplina() {
-			super();
-		}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="grade_disciplina_sequencia")
+	public Long getId() {
+		return id;
+	}
 
-		// ==========================GETTERS_AND_SETTERS======================================================================================================//
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		@Column (name="GRADE_COD")
-		@Id
-		public String getGradeCod() {
-			return gradeCod;
-		}
+	@Column(name="TIPO_DISCIPLINA")
+	public String getTipoDisciplina() {
+		return tipoDisciplina;
+	}
 
-		public void setGradeCod(String gradeCod) {
-			this.gradeCod = gradeCod;
-		}
+	public void setTipoDisciplina(String tipoDisciplina) {
+		this.tipoDisciplina = tipoDisciplina;
+	}
+	@Column(name="PERIODO")
+	public Long getPeriodo() {
+		return periodo;
+	}
 
-		@Column(name="DISCIPLINA_COD")
-		public String getDisciplinaCod() {
-			return disciplinaCod;
-		}
+	public void setPeriodo(Long periodo) {
+		this.periodo = periodo;
+	}
 
-		public void setDisciplinaCod(String disciplinaCod) {
-			this.disciplinaCod = disciplinaCod;
-		}
-		@Column(name="TIPO_DISCIPLINA")
-		public String getTipoDisciplina() {
-			return tipoDisciplina;
-		}
+	@ManyToOne
+	@JoinColumn(name="ID_DISCIPLINA" , referencedColumnName="ID",nullable = false)
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
 
-		public void setTipoDisciplina(String tipoDisciplina) {
-			this.tipoDisciplina = tipoDisciplina;
-		}
-		@Column(name="PERIODO")
-		public Long getPeriodo() {
-			return periodo;
-		}
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
 
-		public void setPeriodo(Long periodo) {
-			this.periodo = periodo;
-		}
+	@ManyToOne
+	@JoinColumn(name="ID_GRADE" , referencedColumnName="ID",nullable = false)
+	public Grade getGrade() {
+		return grade;
+	}
 
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
 
-		
-		
-		
-		
-		
-		
+	@OneToMany(mappedBy = "gradeDisciplina", targetEntity = PreRequisito.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<PreRequisito> getPreRequisito() {
+		return preRequisito;
+	}
 
+	public void setPreRequisito(List<PreRequisito> preRequisito) {
+		this.preRequisito = preRequisito;
+	}
 }
-

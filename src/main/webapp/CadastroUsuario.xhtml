@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="form" style="padding-left: 45px;" class="formularioCentro">
+
+			<div class="titulo">
+				<legend>Cadastro de Usuário</legend>
+			</div>
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="CPF:"></p:outputLabel>
+						<p:inputText value="#{cadastroPessoaController.pessoa.cpf}"
+							id="codigopessoa"></p:inputText>
+
+					</div>
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Nome:"></p:outputLabel>
+						<p:inputText value="#{cadastroPessoaController.pessoa.nome}"
+							id="nomepessoa"></p:inputText>
+
+					</div>
+
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Código Curso:"></p:outputLabel>
+						<p:autoComplete id="codigoCurso"
+							value="#{cadastroPessoaController.curso.codigo}"
+							completeMethod="#{cadastroPessoaController.cursoCodigos}"
+							disabled="#{cadastroPessoaController.lgCodigoCurso}"
+							forceSelection="true">
+
+
+							<p:ajax event="itemSelect"
+								listener="#{cadastroPessoaController.onItemSelectCodigoCurso()}"
+								update="codigoCurso nomeCurso" />
+
+						</p:autoComplete>
+					</div>
+
+					<div class="ui-grid-col-4">
+						<p:outputLabel value="Nome Curso:"></p:outputLabel>
+						
+						
+						<p:autoComplete id="nomeCurso"
+							value="#{cadastroPessoaController.curso}"
+							completeMethod="#{cadastroPessoaController.cursoNomes}"
+							forceSelection="true" size="47" converter="entityConverter"
+							disabled="#{cadastroPessoaController.lgNomeCurso}"
+							var="cl" itemValue="#{cl}" itemLabel="#{cl.nome}">
+							
+							<p:column style="width: 78px;    color: #DCDCDC;">
+								<h:outputText value="#{cl.codigo}" />
+							</p:column>
+
+							<p:column>
+								<h:outputText value="#{cl.nome}" />
+							</p:column>
+							
+							<p:ajax event="itemSelect"
+								listener="#{cadastroPessoaController.onItemSelectNomeCurso()}"
+								update="nomeCurso codigoCurso" />
+						</p:autoComplete>
+					</div>
+
+					<div class="ui-grid-col-2">
+						<p:commandButton class="btn btn-success btn-sm botao"
+							value="Incluir" id="incluirpessoa"
+							actionListener="#{cadastroPessoaController.incluirPessoa}"
+							update="pessoas codigopessoa nomepessoa codigoCurso nomeCurso :form:msgs"
+							ajax="true"></p:commandButton>
+						<p:commandButton class="btn btn-info btn-sm botao" value="Limpar"
+							id="limparpessoa"
+							actionListener="#{cadastroPessoaController.limpaPessoa}"
+							update="pessoas codigopessoa nomepessoa codigoCurso nomeCurso"></p:commandButton>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="gridTamanho espacoLinha">
+
+				<p:dataTable id="pessoas" var="pessoa"
+					value="#{cadastroPessoaController.listaPessoa}" editable="true"
+					style="margin-bottom:20px"
+					filteredValue="#{cadastroPessoaController.listaPessoaFiltradas}"
+					scrollable="true" scrollHeight="450">
+					<f:facet name="header">
+			         Usuários
+			       </f:facet>
+
+					<p:ajax event="rowEdit"
+						listener="#{cadastroPessoaController.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{cadastroPessoaController.onRowCancel}"
+						update=":form:msgs" />
+
+					<p:column headerText="CPF" filterBy="#{pessoa.cpf}"
+						filterMatchMode="contains" style="width: 20%;">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{pessoa.cpf}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="modelInput" value="#{pessoa.cpf}"
+									style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Nome" filterBy="#{pessoa.nome}"
+						style="width: 80%;" filterMatchMode="contains">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{pessoa.nome}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{pessoa.nome}" style="width:100%"
+									label="nome" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:commandLink styleClass="ui-icon ui-icon-search" ajax="true"
+							onclick="PF('editarCursoPessoa').show();"
+							title="Ver Cursos Associados"
+							update=":pessoaCursoForm:nomePessoaSelecionada :pessoaCursoForm:gridPessoaCurso"
+							action="#{cadastroPessoaController.carregaPessoaCurso()}">
+							<f:setPropertyActionListener value="#{pessoa}"
+								target="#{cadastroPessoaController.pessoaSelecionada}" />
+						</p:commandLink>
+					</p:column>
+
+					<p:column style="width:32px">
+
+						<p:commandLink ajax="true" onclick="PF('deletarPessoa').show();"
+							title="Deletar Pessoa" styleClass="ui-icon ui-icon-cancel">
+							<f:setPropertyActionListener value="#{pessoa}"
+								target="#{cadastroPessoaController.pessoaSelecionada}" />
+						</p:commandLink>
+
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</div>
+
+
+			<p:confirmDialog header="Deletar Usuário"
+				message="Tem certeza que deseja deletar o usuário?"
+				widgetVar="deletarPessoa" showEffect="fade" hideEffect="fade">
+				<p:commandButton class="btn btn-default-sm" value="Sim"
+					onclick="reprovar.hide()"
+					actionListener="#{cadastroPessoaController.deletarPessoa()}"
+					update="pessoas" ajax="true" />
+				<p:commandButton class="btn btn-default-sm" value="Não"
+					onclick="reprovar.hide();" update="pessoas" ajax="true" />
+			</p:confirmDialog>
+
+		</h:form>
+
+		<h:form class="formularioCursos" id="pessoaCursoForm"
+			style="padding-left: 45px;">
+
+			<p:dialog header="Manutenção de Cursos por Usuário"
+				widgetVar="editarCursoPessoa" modal="true" height="600" width="620"
+				id="dlg_editar" closeOnEscape="true">
+				<h:panelGroup id="pnl_Dialogo">
+
+
+					<div class="ui-grid ui-grid-responsive" style="padding-left: 15px;">
+						<div class="ui-grid-row espacoLinha">
+
+							<div class="ui-grid-col-4 ">
+								<p:outputLabel value="Nome Usuário:"></p:outputLabel>
+								<p:inputText
+									value="#{cadastroPessoaController.pessoaSelecionada.nome}"
+									disabled="true" id="nomePessoaSelecionada" size="59"></p:inputText>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="ui-grid ui-grid-responsive" style="padding-left: 15px;">
+						<div class="ui-grid-row espacoLinha">
+
+
+							<div style="width: 28%;">
+								<p:outputLabel value="Código Curso:"></p:outputLabel>
+
+								<p:autoComplete id="codigoPessoaCurso"
+									value="#{cadastroPessoaController.curso.codigo}"
+									completeMethod="#{cadastroPessoaController.cursoCodigos}"
+									disabled="#{cadastroPessoaController.lgCodigoPessoaCurso}"
+									forceSelection="true" size="15">
+
+									<p:ajax event="itemSelect"
+										listener="#{cadastroPessoaController.onItemSelectCodigoPessoaCurso()}"
+										update="nomePessoaCurso codigoPessoaCurso" />
+
+								</p:autoComplete>
+
+							</div>
+
+							<div style="width: 53%;">
+								<p:outputLabel value="Nome Curso:"></p:outputLabel>
+
+								<p:autoComplete id="nomePessoaCurso"
+									value="#{cadastroPessoaController.curso.nome}"
+									completeMethod="#{cadastroPessoaController.cursoNomes}"
+									disabled="#{cadastroPessoaController.lgNomePessoaCurso}"
+									forceSelection="true" size="36">
+
+									<p:ajax event="itemSelect"
+										listener="#{cadastroPessoaController.onItemSelectNomePessoaCurso()}"
+										update="nomePessoaCurso codigoPessoaCurso" />
+
+								</p:autoComplete>
+
+							</div>
+
+							<div class="ui-grid-col-2 " style="margin-top: 25px;">
+
+								<p:commandButton id="incluirPessoaCurso"
+									actionListener="#{cadastroPessoaController.incluiPessoaCurso()}"
+									update="nomePessoaCurso codigoPessoaCurso gridPessoaCurso"
+									ajax="true" styleClass="btn-success" icon="ui-icon-plusthick"></p:commandButton>
+								<p:commandButton id="limparpessoa"
+									actionListener="#{cadastroPessoaController.limpaPessoaCurso()}"
+									update="nomePessoaCurso codigoPessoaCurso gridPessoaCurso"
+									styleClass="btn-info" icon="ui-icon-close"></p:commandButton>
+							</div>
+
+						</div>
+					</div>
+
+
+					<p:fieldset legend="Coordenação de Cursos"
+						style="    margin-top: 50px;     width: 585px;">
+						<p:dataTable var="pessoaCurso" id="gridPessoaCurso"
+							value="#{cadastroPessoaController.listaPessoaCurso}">
+
+							<p:column headerText="Código" style="    width: 25%;">
+
+								<h:outputText value="#{pessoaCurso.curso.codigo}" />
+
+							</p:column>
+
+							<p:column headerText="Nome">
+								<h:outputText value="#{pessoaCurso.curso.nome}" />
+							</p:column>
+
+							<p:column style="width:32px">
+
+								<p:commandLink ajax="true"
+									onclick="PF('deletarPessoaCurso').show();"
+									title="Deletar Pessoa X Curso"
+									styleClass="ui-icon ui-icon-cancel">
+									<f:setPropertyActionListener value="#{pessoaCurso}"
+										target="#{cadastroPessoaController.pessoaCursoSelecionada}" />
+
+								</p:commandLink>
+
+
+								<p:confirmDialog global="true" showEffect="fade"
+									header="Deletar Pessoa X Curso"
+									message="Tem certeza que deseja deletar a Pessoa?"
+									 widgetVar="deletarPessoaCurso">
+									<p:commandButton value="Sim" type="button"
+										styleClass="ui-confirmdialog-no" ajax="true">
+
+										<p:ajax event="click"
+											listener="#{cadastroPessoaController.deletarPessoaCurso()}"
+											update="gridPessoaCurso" />
+
+
+
+									</p:commandButton>
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-confirmdialog-no" />
+								</p:confirmDialog>
+
+							</p:column>
+
+						</p:dataTable>
+					</p:fieldset>
+				</h:panelGroup>
+
+
+
+
+
+			</p:dialog>
+
+
+
+
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
+
+
+

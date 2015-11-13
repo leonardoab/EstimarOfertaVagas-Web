@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+
+		<h:form enctype="multipart/form-data" style="padding-left: 45px;" class="formularioCentro">
+			<p:growl autoUpdate="true" sticky="true" />
+			<div class="titulo">
+				<legend>Importar Arquivo</legend>
+			</div>
+			<div class="formularioCorpo"
+				style="height: 429px; margin-bottom: 0%;">
+				<div class="form-group">
+					<p:fileUpload fileUploadListener="#{importaExcel.carrega}"
+						auto="true" update="@form" mode="advanced"
+						dragDropSupport="false" id="arquivo" cancelLabel="Cacelar"
+						uploadLabel="Subir Arquivo" allowTypes="/(\.|\/)(xls)$/"
+						sizeLimit="1000000000000" label="Selecionar Arquivo"
+						invalidFileMessage="Importar apenas arquivos xls"
+						style="width: 75%;margin-left: 12%;margin-top: 6%;" />
+					<p:outputLabel value="Nome da Planilha : #{importaExcel.filename}" id="INomeArquivo" style="margin-left: 13%;font-style: italic;" />
+				</div>				
+				<div>
+					<p:commandButton value="Importar Arquivo" ajax="false"
+						action="#{importaExcel.importar()}" update="erro"
+						class="btn btn-success btn-sm" icon="ui-icon-arrowstop-1-n"
+						style="margin-left: 70%;margin-top: -58px;" />
+				</div>
+			</div>
+			<div class="form-horizontal"
+				style="margin-left: 12%; margin-top: 5%;"></div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

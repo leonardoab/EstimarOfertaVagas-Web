@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+		<fieldset>
+			<div class="titulo">
+				<legend>Página de Erro</legend>
+			</div>
+			<h:form class="formularioCentro" id="FolgaFormRelatorio"
+				method="post" action="teste" role="form">
+
+				<img src="resource/img/atencao.jpg"
+					style="margin-left: 37%; margin-top: 5%; margin-bottom: 1%;" />
+				<label for="Colaborador" class="control-label"
+					style="margin-left: 37%; color: crimson; font-size: larger;">Você
+					não possui permissão de acesso.</label>
+				<label for="Colaborador" class="control-label"
+					style="margin-left: 33%; color: crimson; font-size: larger;">Por
+					favor entre em contato com o setor responsável.</label>
+
+
+			</h:form>
+
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

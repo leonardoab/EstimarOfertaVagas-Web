@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:opt="http://primefaces.prime.com.tr/optimus"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form" style="padding-left: 45px;" class="formularioCentro">
+			<div class="titulo">
+				<legend>Situação do Aluno</legend>
+			</div>
+			<p:growl autoUpdate="true" />
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Matricula:"/>
+						<p:autoComplete id="matriculaAluno"
+							value="#{alunoSituacaoController.aluno.matricula}"
+							completeMethod="#{alunoSituacaoController.alunoMatricula}"
+							disabled="#{alunoSituacaoController.lgMatriculaAluno}"
+							forceSelection="true">
+							<p:ajax event="itemSelect"
+								listener="#{alunoSituacaoController.onItemSelectMatriculaAluno()}"
+								update="@form" />
+						</p:autoComplete>
+					</div>
+					<div class="ui-grid-col-4">
+						<p:outputLabel value="Nome:"/>
+						<p:autoComplete id="nomeAluno"
+							value="#{alunoSituacaoController.aluno}"
+							completeMethod="#{alunoSituacaoController.alunoNome}"
+							disabled="#{alunoSituacaoController.lgNomeAluno}"
+							forceSelection="true" size="47" converter="entityConverter"
+							var="cl" itemValue="#{cl}" itemLabel="#{cl.nome}">
+							<p:column style="width: 78px;    color: #DCDCDC;">
+								<h:outputText value="#{cl.matricula}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{cl.nome}" />
+							</p:column>
+							<p:ajax event="itemSelect"
+								listener="#{alunoSituacaoController.onItemSelectMatriculaAluno()}"
+								update="@form" />
+						</p:autoComplete>
+					</div>
+					<div class="ui-grid-col-1">
+						<p:commandButton class="btn btn-info btn-sm botao" value="Limpar"
+							style="    width: 100px;"
+							actionListener="#{alunoSituacaoController.limpaAluno()}"
+							update="@form" />
+					</div>
+				</div>
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Grade:"/>
+						<p:inputText disabled="true" id="gradeAluno"
+							value="#{alunoSituacaoController.aluno.grade.codigo}"/>
+					</div>
+					<div class="ui-grid-col-4">
+						<p:outputLabel value="Curso:"/>
+						<p:inputText size="47" disabled="true" id="cursoAluno"
+							value="#{alunoSituacaoController.aluno.curso.nome}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<p:outputLabel value="Código Curso:"
+							style="font-size: 13px;margin-top: 3px;"/>
+						<p:inputText size="7" disabled="true" id="codigoCurso"
+							value="#{alunoSituacaoController.aluno.curso.codigo}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<p:outputLabel value="Ingresso:"/>
+						<p:inputText size="7" disabled="true" id="ingressoAluno"
+							value="#{alunoSituacaoController.aluno.periodoIngresso}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<p:outputLabel value="Período:"/>
+						<p:inputText size="7" disabled="true" id="periodoAtualAluno"
+							value="#{alunoSituacaoController.periodo}"/>
+					</div>
+					<div class="ui-grid-col-1">
+						<p:outputLabel value="IRA:"/>
+						<p:inputText size="7" disabled="true" id="iraAtualAluno"
+							value="#{alunoSituacaoController.ira}"/>
+					</div>
+				</div>
+			</div>
+			<div class="gridTamanho espacoLinha">
+				<p:dataTable var="disciplinas" id="gridObrigatorias"
+					emptyMessage="Nenhuma Disciplina"
+					value="#{alunoSituacaoController.listaDisciplinaObrigatorias}"
+					filteredValue="#{alunoSituacaoController.listaDisciplinaEletivasSelecionadas}">
+					<f:facet name="header">
+			         Matérias Obrigatórias
+			       </f:facet>
+					<p:column headerText="Periodo"
+						style="width: 12%;text-align: center;    font-size: 12px;"
+						filterBy="#{disciplinas.periodo}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.periodo}" />
+					</p:column>
+					<p:column headerText="Código Disciplina"
+						style="width: 12%;font-size: 12px;"
+						filterBy="#{disciplinas.codigo}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.codigo}" />
+					</p:column>
+					<p:column headerText="Nome Disciplina"
+						style="width: 50%;font-size: 12px;" filterBy="#{disciplinas.nome}"
+						filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.nome}" />
+					</p:column>
+					<p:column headerText="Situação"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.situacao}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.situacao}" />
+					</p:column>
+					<p:column headerText="Carga Horária"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.cargaHoraria}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.cargaHoraria}" />
+					</p:column>
+					<p:column headerText="Pré-Requisito"
+						style="width: 19%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.listaPreRequisitos}"
+						filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.listaPreRequisitos}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Horas Obrigatórias:"/>
+						<p:progressBar value="#{alunoSituacaoController.percentualObrigatorias}" labelTemplate="#{alunoSituacaoController.horasObrigatoriasConcluidas} / #{alunoSituacaoController.horasObrigatorias}" displayOnly="true"/>
+					</div>
+				</div>
+			</div>
+			<div class="gridTamanho espacoLinha">
+				<p:dataTable var="disciplinas" id="gridEletivas"
+					emptyMessage="Nenhuma Disciplina"
+					value="#{alunoSituacaoController.listaDisciplinaEletivas}"
+					filteredValue="#{alunoSituacaoController.listaDisciplinaEletivasSelecionadas}">
+					<f:facet name="header">
+			         Matérias Eletivas
+			       </f:facet>
+					<p:column headerText="Código Disciplina"
+						style="width: 12%;font-size: 12px;"
+						filterBy="#{disciplinas.codigo}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.codigo}" />
+					</p:column>
+					<p:column headerText="Nome Disciplina"
+						style="width: 60%;font-size: 12px;" filterBy="#{disciplinas.nome}"
+						filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.nome}" />
+					</p:column>
+					<p:column headerText="Situação"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.situacao}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.situacao}" />
+					</p:column>
+					<p:column headerText="Carga Horária"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.cargaHoraria}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.cargaHoraria}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Horas Eletivas:"/>
+						<p:progressBar value="#{alunoSituacaoController.percentualEletivas}" labelTemplate="#{alunoSituacaoController.horasEletivasConcluidas} / #{alunoSituacaoController.aluno.grade.horasEletivas}" displayOnly="true"/>
+					</div>
+				</div>
+			</div>
+			<div class="gridTamanho espacoLinha">
+				<p:dataTable var="disciplinas" id="gridOpcionais"
+					emptyMessage="Nenhuma Disciplina"
+					value="#{alunoSituacaoController.listaDisciplinaOpcionais}"
+					filteredValue="#{alunoSituacaoController.listaDisciplinaOpcionaisSelecionadas}">
+					<f:facet name="header">
+			         Matérias Opcionais
+			       </f:facet>
+					<p:column headerText="Código Disciplina"
+						style="width: 12%;font-size: 12px;"
+						filterBy="#{disciplinas.codigo}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.codigo}" />
+					</p:column>
+					<p:column headerText="Nome Disciplina"
+						style="width: 60%;font-size: 12px;" filterBy="#{disciplinas.nome}"
+						filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.nome}" />
+					</p:column>
+					<p:column headerText="Situação"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.situacao}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.situacao}" />
+					</p:column>
+					<p:column headerText="Carga Horária"
+						style="width: 14%;text-align: center;font-size: 12px;"
+						filterBy="#{disciplinas.cargaHoraria}" filterMatchMode="contains">
+						<h:outputText value="#{disciplinas.cargaHoraria}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Horas Opcionais:"></p:outputLabel>
+						<p:progressBar value="#{alunoSituacaoController.percentualOpcionais}" labelTemplate="#{alunoSituacaoController.horasOpcionaisConcluidas} / #{alunoSituacaoController.aluno.grade.horasOpcionais} " displayOnly="true"/>						
+					</div>
+				</div>
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Período:"/>
+						<p:inputText id="periodoAce"
+							value="#{alunoSituacaoController.eventosAce.periodo}"/>
+					</div>
+					<div class="ui-grid-col-2" style="width: 50%;">
+						<p:outputLabel value="Descrição:"/>
+						<p:inputText size="74" id="descricaoAce"
+							value="#{alunoSituacaoController.eventosAce.descricao}"/>
+					</div>
+					<div class="ui-grid-col-2" style="width: 17%;">
+						<p:outputLabel value="Carga Horária:"/>
+						<p:inputText id="cargaAce"
+							value="#{alunoSituacaoController.eventosAce.horas}"/>
+					</div>
+					<div class="ui-grid-col-2">
+						<p:commandButton class="btn btn-success btn-sm botao"
+							value="Incluir" id="incluirAce" disabled="#{alunoSituacaoController.lgAce}"
+							update="periodoAce descricaoAce cargaAce hrsAce gridAce"
+							actionListener="#{alunoSituacaoController.adicionarAce()}">
+						</p:commandButton>
+						<p:commandButton class="btn btn-info btn-sm botao" value="Limpar"
+							id="limparAce" disabled="#{alunoSituacaoController.lgAce}"
+							actionListener="#{alunoSituacaoController.limparAce()}"
+							update="periodoAce descricaoAce cargaAce">
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+			<div class="gridTamanho espacoLinha">
+				<p:dataTable var="eventosAce" id="gridAce"
+					emptyMessage="Nenhuma Evento"
+					value="#{alunoSituacaoController.listaEventosAce}"
+					filteredValue="#{alunoSituacaoController.listaEventosAceSelecionadas}">
+					<f:facet name="header">
+			         Eventos ACE
+			       </f:facet>
+					<p:column headerText="Período"
+						style="width: 12%;font-size: 12px;text-align: center;"
+						filterBy="#{eventosAce.periodo}" filterMatchMode="contains">
+						<h:outputText value="#{eventosAce.periodo}" />
+					</p:column>
+					<p:column headerText="Descrição"
+						style="width: 60%;font-size: 12px;"
+						filterBy="#{eventosAce.descricao}" filterMatchMode="contains">
+						<h:outputText value="#{eventosAce.descricao}" />
+					</p:column>
+					<p:column headerText="Carga Horária"
+						style="width: 14%;font-size: 12px;text-align: center;"
+						filterBy="#{eventosAce.horas}" filterMatchMode="contains">
+						<h:outputText value="#{eventosAce.horas}" />
+					</p:column>
+					
+						<p:column style="width: 3%;text-align: center;padding: 0px 10px;">
+						<p:commandLink ajax="true" title="Excluir disciplina"
+							onclick="PF('deletarAce').show()"
+							styleClass="ui-icon ui-icon-cancel">
+							<f:setPropertyActionListener value="#{eventosAce}"
+								target="#{alunoSituacaoController.eventoAceSelecionado}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog header="Deletar Evento ACE"
+				message="Tem certeza que deseja deletar o Evento Ace?"
+				widgetVar="deletarAce" showEffect="fade" hideEffect="fade">
+				<p:commandButton class="btn btn-default-sm" value="Sim"
+					update="@form" onclick="reprovar.hide()"
+					actionListener="#{alunoSituacaoController.deletarAce()}"
+					ajax="true" />
+				<p:commandButton class="btn btn-default-sm" value="Não"
+					update="@form" onclick="reprovar.hide();"
+					ajax="true" />
+			</p:confirmDialog>
+				
+				
+				
+			</div>
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row espacoLinha">
+					<div class="ui-grid-col-2">
+						<p:outputLabel value="Horas ACE:"/>
+						<p:progressBar id="hrsAce" value="#{alunoSituacaoController.percentualAce}" labelTemplate="#{alunoSituacaoController.horasAceConcluidas} / #{alunoSituacaoController.aluno.grade.horasAce} " displayOnly="true"/>						
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

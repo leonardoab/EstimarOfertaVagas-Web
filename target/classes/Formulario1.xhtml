@@ -1,0 +1,1939 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="Templete.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="form1">
+
+			<div>
+				<legend
+					style="font-family: initial; margin-left: 2%; color: #565959;">Formulário
+					de Procedimento de Puericultura de 0 a 4 Anos de Idade</legend>
+			</div>
+
+			<p:growl life="5000" id="grow" />
+
+			<div id="DadosPessoais">
+
+
+				<p:outputLabel value="Dados Pessoais"
+					style="text-decoration: underline;  margin-left: 540px;"
+					id="titulo"></p:outputLabel>
+
+				<div id="IprimeiraLinhaDadosPessoais" class="form-group"
+					style="margin-top: 30px;">
+
+					<div id="Inome" class="form-group">
+						<p:outputLabel class="control-label" value="Nome:" for="nomeGrid"
+							style="margin-left: 70px;" />
+						<p:autoComplete class="control-label" style="margin-left: 10px;"
+							size="53" disabled="true" id="nomeGrid"
+							value="#{buscarDadosController.usuario.nm_usuario}"
+							completeMethod="#{protocoloController.completeText}">
+
+						</p:autoComplete>
+					</div>
+
+					<div class="col-sm-4"
+						style="width: 21%; margin-top: -42px; margin-left: 714px;">
+						<p:outputLabel class="control-label" value="Data de Nascimento:"
+							for="dataInicial" style="margin-left: -70px;" />
+						<div class="input-group"
+							style="margin-top: -28px; margin-left: 157px; margin-right: -122px;">
+							<p:inputText id="dataInicial" pattern="dd/MM/yyyy"
+								style="width: 88px; margin-left: -72px;" disabled="true"
+								onkeypress="return desabilitaEscrita(event)"
+								pt:placeholder="__/__/____   --:--"
+								value="#{buscarDadosController.usuario.dt_nascimento}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</p:inputText>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="IsegundaLinhaDadosPessoais" class="form-group">
+
+					<div id="Icarteira" class="form-group" />
+					<div class="col-sm-1" style="margin-left: 20%">
+						<p:outputLabel class="control-label" value="Carteira:" for="Icart"
+							style="margin-left: -215px; margin-top: 7px;" />
+						<p:inputText class="form-control" name="CodUnidade" id="Icart"
+							disabled="true" value="0049"
+							style="margin-left: -145px; margin-top: -32px; opacity: 0.7;" />
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-2" style="margin-left: 20%">
+							<p:inputMask mask="9?999999999999" class="form-control"
+								disabled="true" name="IcarIni"
+								style="width: 71%; margin-left: -426px; margin-top: 0px; opacity: 0.7;"
+								id="IcarIni"
+								value="#{formulario0a4Controller.car_ide.cd_carteira_inteira}">
+							</p:inputMask>
+						</div>
+
+					</div>
+
+					<div id="Iidade" class="form-group"
+						style="margin-top: -59px; margin-left: 519px;">
+						<p:outputLabel class="control-label" value="Idade:" for="idade"
+							style="margin-left: -167px; margin-top: 67px;" />
+						<p:inputText id="idade"
+							value="#{formulario0a4Controller.usuario.idade}"
+							style="margin-left: 12px; margin-top: 5px; width: 30px;"
+							disabled="true" />
+						<h:outputLabel value="anos" />
+
+						<p:inputText id="idadeMes"
+							value="#{formulario0a4Controller.usuario.idadeMes}"
+							style="margin-left: 12px; margin-top: 5px; width: 30px;"
+							disabled="true" />
+						<h:outputLabel value="meses" />
+
+						<p:inputText id="idadeDias"
+							value="#{formulario0a4Controller.usuario.idadeDia}"
+							style="margin-left: 12px; margin-top: 5px; width: 30px;"
+							disabled="true" />
+						<h:outputLabel value="dias" />
+
+					</div>
+				</div>
+
+				<div id="IterceiraLinhaDadosPessoais" class="form-group"
+					style="margin-top: -52px;">
+
+					<div id="Isexo" class="form-group"
+						style="margin-top: 63px; margin-left: 70px;">
+						<p:outputLabel class="control-label" value="Sexo:" for="sexo"
+							style="margin-left: 5px;" />
+						<p:inputText id="sexo" disabled="true"
+							value="#{formulario0a4Controller.usuario.lg_sexo}"
+							style="margin-left: 10px; margin-top: 5px; width: 213px;" />
+					</div>
+
+				</div>
+
+			</div>
+
+			<p:accordionPanel multiple="false" class="tabPrimefaces"
+				activeIndex="false" onTabChange="true">
+
+				<p:tab title="Procedimento" id="proc"
+					titleStyle="background: none repeat scroll 0% 0% rgba(0, 152, 92, 0.31);">
+
+					<div id="IcodigoProcedimento" class="form-group"
+						style="margin-top: 5px;">
+						<p:outputLabel class="control-label" value="Código:"
+							for="codigoProcedimento" style="margin-left: 5px;" />
+						<p:inputText class="control-label"
+							style="margin-left: 10px; width: 78px;" size="53" disabled="true"
+							id="codigoProcedimento" value="10106146" />
+					</div>
+
+					<div id="IdescricaoProcedimento" class="form-group"
+						style="margin-top: -42px; margin-left: 164px;">
+						<p:outputLabel class="control-label" value="Descrição:"
+							for="descricaoProcedimento" />
+						<p:inputText class="control-label" style="margin-left: 10px;"
+							size="53" disabled="true" id="descricaoProcedimento"
+							value="#{formulario0a4Controller.procedimento.ds_procedimento_reduz}" />
+					</div>
+
+
+
+					<div id="data" class="col-sm-2"
+						style="margin-top: -42px; margin-left: 712px; width: 371px;">
+						<p:outputLabel class="control-label" value="Data de realização:"
+							for="dataInicial" />
+						<p:calendar mask="99/99/9999" locale="pt" id="dataInicial"
+							mindate="#{formulario0a4Controller.calcDataMinima()}"
+							maxdate="#{formulario0a4Controller.calcDataMaxima()}"
+							style="margin-left: 10px;" size="7" pattern="dd/MM/yyyy"
+							onkeypress="return desabilitaEscrita(event)"
+							pt:placeholder="__/__/____"
+							value="#{formulario0a4Controller.beneficiarioConsulta.dt_realizacao}">
+							<p:ajax update="competenciaRc" event="dateSelect"
+								partialSubmit="true"
+								listener="#{formulario0a4Controller.calculaCompetencia()}">
+							</p:ajax>
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+					</div>
+
+					<!-- <div class="col-sm-2"
+						style="margin-top: -42px; margin-left: 712px; width: 371px;">
+						<p:outputLabel class="control-label" value="Data de realização:"
+							for="dataRealizacao" />
+						<p:calendar mask="99/99/9999" locale="pt_BR"
+							id="dataRealizacao" pattern="dd/MM/yyyy"
+							style="margin-left: 10px;" size="7"
+							pt:placeholder="__/__/____"
+							value="#{formulario0a4Controller.beneficiarioConsulta.dt_realizacao}">
+							<p:ajax update="competenciaRc,@this" event="blur" 
+							listener="#{formulario0a4Controller.calculaCompetencia()}">							
+							</p:ajax>
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:calendar>
+					</div> -->
+
+					<!-- <div class="col-sm-2"
+						style="margin-top: -37px; margin-left: 740px;">
+						<p:outputLabel class="control-label" value="Data de realização:"
+							for="dataRealizacao" />
+						<div class="input-group"
+							style="margin-top: -27px; margin-left: 136px;">
+							<p:inputText id="dataRealizacao" pattern="dd/MM/yyyy"
+								style="width: 120px;"
+								pt:placeholder="__/__/____"
+								value="#{formulario0a4Controller.beneficiarioConsulta.dt_realizacao}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm"
+									timeZone="America/Sao_Paulo" />
+							</p:inputText>
+						</div>
+					</div> -->
+
+					<div id="IcompetenciaRc"
+						style="margin-top: -42px; margin-left: 972px;">
+						<div id="grupoCompetencia">
+							<h:outputLabel value="Competência:" class="control-label" />
+							<p:inputMask mask="99/9999" id="competenciaRc"
+								style="width: 65px; margin-left: 10px;" required="true"
+								requiredMessage="Competência: é um campo obrigatório."
+								readonly="true"
+								value="#{formulario0a4Controller.beneficiarioConsulta.competencia_rc}" />
+						</div>
+					</div>
+
+				</p:tab>
+
+				<p:tab title="Condições de Parto e Nascimento"
+					titleStyle="background: none repeat scroll 0% 0% rgba(0, 152, 92, 0.31);">
+
+					<div id="IprimeiraLinhaInformacoesGerais" class="form-group"
+						style="margin-top: -56px;">
+
+						<div id="IpesoAoNascer" class="form-group"
+							style="margin-top: 63px; margin-left: -11px;">
+							<p:outputLabel class="control-label"
+								value="Peso ao nascer (Kg): *" style="margin-left: 95px;" />
+							<p:inputMask mask="9,99" placeHolder="0" id="pesoAoNascer"
+								required="true"
+								requiredMessage="Peso ao nascer: é um campo obrigatório."
+								disabled="#{formulario0a4Controller.lgPartoNascimento}"
+								value="#{formulario0a4Controller.beneficiario.peso_nascimento}"
+								style="margin-left: 10px; margin-top: 5px;"
+								onkeypress="return desabilita(event)">
+								<p:ajax event="change" update="@this"
+									listener="#{formulario0a4Controller.atribuiValorVariavel}"></p:ajax>
+								<f:convertNumber locale="pt_BR" pattern="#0.00" />
+							</p:inputMask>
+						</div>
+
+						<div id="Iparto" style="margin-top: -50px; margin-left: 860px;">
+							<h:panelGroup columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:outputLabel for="parto" value="Tipo de Parto:"
+									style="margin-top: 14px; margin-left: -356px;" />
+								<p:selectOneRadio id="parto" class="col-sm-3" layout="grid"
+									columns="2" required="true"
+									disabled="#{formulario0a4Controller.lgPartoNascimento}"
+									requiredMessage="Tipo de parto: é um campo obrigatório."
+									value="#{formulario0a4Controller.beneficiario.tipo_parto}"
+									style="margin-top: 9px; margin-left: -245px; width: 165px;">
+									<f:selectItem itemLabel="Cesária" itemValue="CESARIA" />
+									<f:selectItem itemLabel="Vaginal" itemValue="VAGINAL" />
+								</p:selectOneRadio>
+							</h:panelGroup>
+						</div>
+
+					</div>
+
+					<div id="IsegundaLinhaInformacoesGerais" class="form-group"
+						style="margin-top: 67px;">
+
+						<div id="IestaturaNascer" class="form-group"
+							style="margin-top: -50px; margin-left: -232px;">
+							<p:outputLabel class="control-label"
+								value="Estatura ao Nascer (m):" for="estaturaNascer"
+								style="margin-left: 299px; margin-top: 13px;" />
+							<p:inputMask mask="9,99" placeHolder="0" id="estaturaNascer"
+								required="true" onkeypress="return desabilita(event)"
+								disabled="#{formulario0a4Controller.lgPartoNascimento}"
+								requiredMessage="Estatura ao nascer: é um campo obrigatório."
+								value="#{formulario0a4Controller.beneficiario.estatura_nascimento}"
+								style="margin-left: 10px; margin-top: 5px;">
+								<f:convertNumber locale="pt_BR" pattern="#0.00" />
+							</p:inputMask>
+						</div>
+
+						<div id="IinternacaoNeoNatal"
+							style="margin-top: -39px; margin-left: 554px;">
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:outputLabel value="Internação Neonatal"
+									style="margin-left: -29px; width: 180px;" />
+							</h:panelGrid>
+						</div>
+
+						<div id="Iintercorrencia1" class="form-group"
+							style="margin-top: -25px; margin-left: 70px;">
+
+							<div style="margin-top: -34px; margin-left: 418px;">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiario.internacao_neo_natal_nascimento}"
+										disabled="#{formulario0a4Controller.lgPartoNascimento}"
+										style="margin-left: 18px;">
+										<p:ajax
+											update="botaoModalInternacaoPatologia,botaoModalInternacaoCid1,cidInternacao,patologiaInternacao"
+											listener="#{formulario0a4Controller.validaCidIntercorrenciaCheckInternacaoNeoNatal()}"></p:ajax>
+									</p:selectBooleanCheckbox>
+									<p:outputLabel style="margin-left: 4px; margin-top: 2px;" />
+								</h:panelGrid>
+							</div>
+						</div>
+
+						<div id="IcidInternacao"
+							style="width: -22%; margin-top: -62px; margin-left: 107px;">
+							<p:outputLabel value="CID:"
+								style="margin-top: 29px; margin-left: 566px;" />
+							<p:inputText id="cidInternacao" disabled="true"
+								style="margin-top: -27px; margin-left: 10px; width: 57px;"
+								value="#{formulario0a4Controller.dzCid10.cd_cid}">
+								<p:ajax update="patologiaInternacao" event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10()}" />
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalInternacaoCid1"
+							style="margin-top: -28px; margin-left: 770px;">
+
+							<p:commandButton id="botaoModalInternacaoCid1"
+								icon="ui-icon-search" type="button"
+								onclick="PF('modalInternacaoCid').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheckInternacaoNeoNatal()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalInternacaoCid" minHeight="40"
+							modal="true">
+							<p:outputLabel value="CID-1:" for="cidIntercorrencia1Modal" />
+							<p:autoComplete id="cidInternacaoModal"
+								value="#{formulario0a4Controller.dzCid10.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+								<p:ajax update="cidInternacao,patologiaInternacao" event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10()}" />
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalInternacaoCid.hide(); return false;" />
+						</p:dialog>
+
+						<div id="IpatologiaInternacao"
+							style="width: -22%; margin-top: -53px; margin-left: 462px;">
+							<p:outputLabel value="Patologia:" for="patologiaInternacao"
+								style="margin-top: 31px; margin-left: 358px;" />
+							<p:inputText id="patologiaInternacao" disabled="true"
+								value="#{formulario0a4Controller.dzCid10.descricao_doenca}"
+								style="margin-top: -27px; margin-left: 10px; width: 321px;">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalInternacaoPatologia"
+							style="margin-top: -28px; margin-left: 1220px;">
+
+							<p:commandButton id="botaoModalInternacaoPatologia"
+								icon="ui-icon-search" type="button"
+								onclick="PF('modalInternacaoPatologia').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheckInternacaoNeoNatal()}" />
+						</div>
+
+						<p:dialog widgetVar="modalInternacaoPatologia" minHeight="40"
+							modal="true">
+							<p:outputLabel value="Patologia-1:"
+								for="patologiaInternacaoModal" />
+							<p:autoComplete id="patologiaInternacaoModal"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10.descricao_doenca}">
+								<p:ajax update="cidInternacao,patologiaInternacao" event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Patologia()}"></p:ajax>
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalInternacaoPatologia.hide(); return false;" />
+						</p:dialog>
+
+					</div>
+
+					<h:inputHidden
+						rendered="#{formulario0a4Controller.validaPerimetroCefalico()}">
+
+						<div id="IterceiraLinhaInformacoesGerais" class="form-group"
+							style="margin-top: 70px;">
+
+							<div id="IperimetroCefalicoNascer" class="form-group"
+								style="margin-top: -51px; margin-left: -194px;">
+								<p:outputLabel class="control-label"
+									value="Perimetro Cefálico ao Nascer (m):"
+									for="perimetroCefalicoNascer"
+									style="margin-left: 194px; margin-top: 14px;" />
+								<p:inputMask mask="9,99" placeHolder="0"
+									id="perimetroCefalicoNascer" required="true"
+									onkeypress="return desabilita(event)"
+									disabled="#{formulario0a4Controller.lgPartoNascimento}"
+									requiredMessage="Perímetro cefálico ao nascer: é um campo obrigatório."
+									value="#{formulario0a4Controller.beneficiario.perimetro_cefalico_nascimento}"
+									style="margin-left: 10px; margin-top: 5px;">
+									<f:convertNumber locale="pt_BR" pattern="#0.00" />
+								</p:inputMask>
+							</div>
+
+						</div>
+
+					</h:inputHidden>
+
+				</p:tab>
+
+				<p:tab title="Dados Antropométricos">
+
+					<div id="IprimeiraLinhaMensuracoes" class="form-group"
+						style="height: 43px;">
+
+						<div id="Ipeso" class="form-group">
+
+							<div class="col-sm-5"
+								style="margin-left: 6px; margin-top: -14px;">
+								<p:outputLabel class="control-label" value="Peso (kg):"
+									for="peso" style="margin-left: -16px;" />
+								<div>
+									<p:inputMask id="peso" mask="99?9,99" placeHolder="0"
+										style="margin-top: -2px; margin-left: -16px;" required="true"
+										requiredMessage="Peso: é um campo obrigatório."
+										onkeypress="return desabilita(event)"
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_peso}">
+										<f:convertNumber locale="pt_BR" pattern="#0.00" />
+										<p:ajax listener="#{formulario0a4Controller.calculaImc()}"
+											update="imc" event="keyup" />
+									</p:inputMask>
+
+								</div>
+							</div>
+
+						</div>
+
+						<div id="Iestatura" class="form-group">
+							<div class="col-sm-5"
+								style="margin-left: -297px; margin-top: -14px;">
+								<p:outputLabel class="control-label" value="Estatura (m):"
+									for="estatura" style="margin-left: -16px;" />
+								<div>
+									<p:inputMask id="estatura" mask="9?,99" placeHolder="0"
+										required="true" onkeypress="return desabilita(event)"
+										requiredMessage="Estatura: é um campo obrigatório."
+										style="margin-top: -2px; margin-left: -16px;"
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_estatura}">
+										<f:convertNumber locale="pt_BR" pattern="#0.00" />
+										<p:ajax listener="#{formulario0a4Controller.calculaImc()}"
+											update="imc" event="keyup" partialSubmit="true" />
+									</p:inputMask>
+								</div>
+							</div>
+						</div>
+
+						<div id="Iimc" class="form-group">
+							<div class="col-sm-5"
+								style="margin-left: -297px; margin-top: -14px;">
+								<p:outputLabel class="control-label"
+									value="IMC (peso/estatura²):" for="imc"
+									style="margin-left: -16px;" />
+								<div>
+									<p:inputText id="imc" disabled="true"
+										style="margin-top: -2px; margin-left: -16px;"
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_imc}">
+										<f:convertNumber locale="pt_BR" pattern="#0.00"
+											maxFractionDigits="2" />
+									</p:inputText>
+								</div>
+							</div>
+						</div>
+
+						<div id="IperimetroCefalico" class="form-group">
+							<div class="col-sm-5"
+								style="margin-left: -297px; margin-top: -14px;">
+								<p:outputLabel class="control-label"
+									value="Perímetro Cefálico (m):" for="perimetroCefalico"
+									style="margin-left: -16px;" />
+								<div>
+									<p:inputMask mask="9,99" placeHolder="0" id="perimetroCefalico"
+										onkeypress="return desabilita(event)"
+										style="margin-top: -2px; margin-left: -16px;" required="true"
+										requiredMessage="Perímetro cefálico: é um campo obrigatório."
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_perimetro_cefalico}">
+										<f:convertNumber locale="pt_BR" pattern="#0.00" />
+									</p:inputMask>
+								</div>
+							</div>
+						</div>
+
+						<div id="IpressaoArterial" class="form-group">
+							<div class="col-sm-5"
+								style="margin-left: 820px; margin-top: -48px; width: 295px;">
+								<p:outputLabel class="control-label"
+									value="Pressão Arterial (mmHg) - acima 3 anos:"
+									for="pressaoArterialMaximo" style="margin-left: -16px;" />
+								<div>
+									<p:inputMask mask="9?99" id="pressaoArterialMaximo"
+										style="margin-top: -2px; margin-left: -16px;  width: 35px;"
+										required="true"
+										requiredMessage="Pressão arterial: é um campo obrigatório."
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_pressao_arterial_maximo}" />
+
+									<p:outputLabel value="/" />
+
+									<p:inputMask mask="9?99" id="pressaoArterialMinimo"
+										style="margin-top: -2px; margin-left: 0px;  width: 35px;"
+										required="true"
+										requiredMessage="Pressão arterial: é um campo obrigatório."
+										value="#{formulario0a4Controller.beneficiarioConsulta.mensuracao_pressao_arterial_minimo}" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:tab>
+
+				<p:tab title="Estado Nutricional">
+
+					<div id="IprimeiraLinhaEstadoNutricional"
+						style="margin-top: 5px; height: 40px;">
+
+						<p:selectOneRadio class="col-sm-5" layout="grid" columns="4"
+							id="nutricional" required="true"
+							requiredMessage="Estado Nutricional: é um campo obrigatório."
+							value="#{formulario0a4Controller.beneficiarioConsulta.estado_nutricional}"
+							style="margin-top: 4px; margin-left: 30px;">
+							<f:selectItem itemLabel="Desnutrição" itemValue="DESNUTRICAO" />
+							<f:selectItem itemLabel="Adequado" itemValue="ADEQUADO" />
+							<f:selectItem itemLabel="Sobrepeso" itemValue="SOBREPESO" />
+							<f:selectItem itemLabel="Obesidade" itemValue="OBESIDADE" />
+						</p:selectOneRadio>
+
+					</div>
+
+				</p:tab>
+
+				<p:tab title="Exames de Triagem Neonatal"
+					titleStyle="background: none repeat scroll 0% 0% rgba(0, 152, 92, 0.31);">
+
+					<div id="IprimeiraLinhaExamesTriagemNeonata" class="form-group">
+
+						<div id="ItesteOlhinho" style="margin-top: 8px; margin-left: 2px;">
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:selectBooleanCheckbox
+									disabled="#{formulario0a4Controller.lgExameNeonatal}"
+									value="#{formulario0a4Controller.beneficiario.triagem_teste_olho}"
+									style="margin-left: 18px;" />
+								<p:outputLabel value="Teste do Olhinho"
+									style="margin-left: 4px; margin-top: 3px;" />
+							</h:panelGrid>
+						</div>
+
+						<div id="ItestePezinho"
+							style="margin-top: -35px; margin-left: 213px;">
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:selectBooleanCheckbox
+									disabled="#{formulario0a4Controller.lgExameNeonatal}"
+									value="#{formulario0a4Controller.beneficiario.triagem_teste_pe}"
+									style="margin-left: 18px;" />
+								<p:outputLabel value="Teste do Pezinho"
+									style="margin-left: 4px; margin-top: 3px;" />
+							</h:panelGrid>
+						</div>
+
+						<div id="ItesteOrelhinha"
+							style="margin-top: -35px; margin-left: 434px;">
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:selectBooleanCheckbox
+									disabled="#{formulario0a4Controller.lgExameNeonatal}"
+									value="#{formulario0a4Controller.beneficiario.triagem_teste_orelha}"
+									style="margin-left: 18px;" id="testeOrelhinha"
+									requiredMessage="hygygyugyiu" />
+								<p:outputLabel value="Teste da Orelhinha" for="testeOrelhinha"
+									style="margin-left: 4px; margin-top: 3px;" />
+							</h:panelGrid>
+						</div>
+
+						<div id="ItesteCoracaozinho"
+							style="margin-top: -35px; margin-left: 660px;">
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:selectBooleanCheckbox
+									disabled="#{formulario0a4Controller.lgExameNeonatal}"
+									value="#{formulario0a4Controller.beneficiario.triagem_teste_coracao}"
+									style="margin-left: 18px;" />
+								<p:outputLabel value="Teste do Coraçãozinho"
+									style="margin-left: 4px; margin-top: 3px;" />
+							</h:panelGrid>
+						</div>
+
+					</div>
+
+				</p:tab>
+
+				<p:tab id="ItabTipoAlimentacao" title="Tipo de Alimentação">
+
+					<div id="IprimeiraLinhaTipoAlimentacao" class="form-group"
+						style="margin-top: 5px;">
+
+						<div id="IleiteMaterno" style="margin-left: 30px;">
+
+							<h:outputText value="Leite Materno:" />
+							<h:selectOneRadio layout="grid" columns="2" id="leiteMaterno"
+								required="true"
+								requiredMessage="Leite Materno: é um campo obrigatório."
+								value="#{formulario0a4Controller.beneficiarioConsulta.aleitamentoMaterno}"
+								style="margin-top: -20px; margin-left: 101px; width: 110px;">
+								<f:selectItem itemLabel="Sim" itemValue="TRUE" />
+								<f:selectItem itemLabel="Não" itemValue="FALSE" />
+								<p:ajax update="aleitamento,alimentacao"
+									listener="#{formulario0a4Controller.validaTipoAlimentacao()}" />
+							</h:selectOneRadio>
+
+						</div>
+
+					</div>
+
+					<div id="IsegundaLinhaTipoAlimentacao" class="form-group"
+						style="margin-top: 5px;">
+
+						<div id="IselecionarAleitamento">
+
+							<h:selectOneRadio id="aleitamento" layout="pageDirection"
+								disabled="#{formulario0a4Controller.lgAleitamento}"
+								value="#{formulario0a4Controller.beneficiarioConsulta.tipo_alimentacao}"
+								style="margin-top: 4px; margin-left: 30px; width: 320px;">
+								<f:selectItem itemValue="ALEITAMENTO_MATERNO_EXCLUSIVO" />
+								<f:selectItem itemValue="ALEITAMENTO_MATERNO_PREDOMINANTE" />
+								<f:selectItem itemValue="ALEITAMENTO_MATERNO" />
+								<f:selectItem itemValue="ALIMENTACAO_COMPLEMENTAR" />
+							</h:selectOneRadio>
+
+						</div>
+
+						<div id="ItoolTipTipoAlimentacaoAleitamento"
+							style="margin-top: -83px; margin-left: 52px;">
+
+							<div id="IaleitamentoMaternoExclusivo">
+								<p:outputLabel id="aleitamentoMaternoExclusivo"
+									value="Aleitamento Materno Exclusivo" />
+
+								<p:graphicImage library="images" name="SPP_Interrogacao.png"
+									style="height: 15px; margin-left: 5px;" data-toggle="tooltip"
+									title="Quando a criança recebe somente leite materno, diretamente da mama ou extraído, e nenhum outro líguido ou sólido, com exceção de gotas ou xaropes de vitaminas, minerais e / ou medicamentos.">
+								</p:graphicImage>
+
+							</div>
+
+							<div id="IaleitamentoMaternoPredominante">
+								<p:outputLabel id="aleitamentoMaternoPredominante"
+									value="Aleitamento Materno Predominante" />
+
+								<p:graphicImage library="images" name="SPP_Interrogacao.png"
+									style="height: 15px; margin-left: 5px;" data-toggle="tooltip"
+									title="Quando o lactente recebe, além do leite materno, água ou bebidas à base de água, como sucos de frutas e chás.">
+								</p:graphicImage>
+
+							</div>
+
+							<div id="IaleitamentoMaterno">
+								<p:outputLabel id="aleitamentoMaterno"
+									value="Aleitamento Materno" />
+
+								<p:graphicImage library="images" name="SPP_Interrogacao.png"
+									style="height: 15px; margin-left: 5px;" data-toggle="tooltip"
+									title="Quando a criança recebe leite materno, diretamente do seio ou extraído, independente de estar recebendo qualquer alimento ou líguido, incluindo leite não-humano.">
+								</p:graphicImage>
+
+							</div>
+
+							<div id="IalimentacaoComplementar">
+								<p:outputLabel id="alimentacaoComplementar"
+									value="Alimentação Complementar" />
+
+								<p:graphicImage library="images" name="SPP_Interrogacao.png"
+									style="height: 15px; margin-left: 5px;" data-toggle="tooltip"
+									title="São quaisquer alimentos que não o leite humano oferecidos à criança amamentada. Alimentos de transição, antigamente chamados de alimentos de desmame, se referem aos alimentos complementares escialmente preparados para crianças pequenas, até que elas passem a receber os alimentos consumidos pela família. O termo alimentos de desmame deve ser evitado ,pois pode dar a falsa impressão de que eles são usados para provocar o desmame e não para complementar o leite materno.">
+								</p:graphicImage>
+
+							</div>
+
+						</div>
+
+						<div id="IselecionarAlimentacao">
+
+							<h:selectOneRadio id="alimentacao" layout="pageDirection"
+								disabled="#{formulario0a4Controller.lgAlimentacao}"
+								value="#{formulario0a4Controller.beneficiarioConsulta.tipo_alimentacao}"
+								style="margin-top: -90px; margin-left: 365px; width: 170px;">
+								<f:selectItem itemValue="FORMULA_INFANTIL" />
+								<f:selectItem itemValue="LEITE_VACA" />
+							</h:selectOneRadio>
+
+						</div>
+
+						<div id="ItoolTipTipoAlimentacaoAlimentacao"
+							style="margin-top: -39px; margin-left: 387px;">
+
+							<div id="IformulaInfantil">
+								<p:outputLabel id="formulaInfantil" value="Fórmula Infantil" />
+							</div>
+
+							<div id="IleiteVaca">
+								<p:outputLabel id="leiteVaca" value="Leite de Vaca" />
+							</div>
+
+						</div>
+
+						<div id="Iobservacao"
+							style="margin-top: -50px; margin-left: 580px;">
+							<div>
+								<p:outputLabel value="Observação:"></p:outputLabel>
+								<div>
+									<p:inputTextarea id="observacao"
+										style="width: 660px; height: 95px;"
+										value="#{formulario0a4Controller.beneficiarioConsulta.tipo_alimentacao_observacao}"
+										counter="display" maxlength="500"
+										counterTemplate="Restam {0} caracteres." autoResize="false"></p:inputTextarea>
+									<h:outputText id="display" style="margin-left: 500px;" />
+								</div>
+							</div>
+						</div>
+
+						<!-- <div id="IlegendaTipoAlimentacao"
+							style="margin-left: 31px; margin-top: -20px;">
+
+							Button trigger modal
+							<p:commandLink type="button" class="btn btn-default btn-sm"
+								pt:data-toggle="modal" pt:data-target="#myModal" value="Legenda" />
+
+							Modal
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header"></div>
+										<div class="modal-body">
+
+											<div class="container">
+												<div class="row">
+													<div class="col-md-6"
+														style="margin-left: -12px; margin-top: -35px;">
+														<div class="panel panel-success">
+															<div class="panel-heading">
+																<h3 class="panel-title">Tipo de Alimentação</h3>
+																<div class="pull-right">
+																	<span class="clickable filter" data-toggle="tooltip"
+																		title="Filtrar Tabela" data-container="body"> <i
+																		class="glyphicon glyphicon-filter"></i>
+																	</span>
+																</div>
+															</div>
+															<div class="panel-body">
+																<input type="text" class="form-control"
+																	id="dev-table-filter" data-action="filter"
+																	data-filters="#dev-table" placeholder="Buscar Tipos" />
+															</div>
+															<table class="table table-hover" id="dev-table">
+																<thead>
+																	<tr>
+																		<th
+																			style="color: #459926; font-size: 104%; text-align: center;">Alimentação</th>
+																		<th
+																			style="color: #459926; font-size: 104%; text-align: center;">Descrição</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>Materno</td>
+																		<td align="justify">Quando a criança recebe leite
+																			materno, diretamente do seio ou extraído,
+																			independente de estar recebendo qualquer alimento ou
+																			líguido, incluindo leite não-humano</td>
+																	</tr>
+																	<tr>
+																		<td>Materno Exclusivo</td>
+																		<td align="justify">Quando a criança recebe
+																			somente leite materno, diretamente da mama ou
+																			extraído, e nenhum outro líguido ou sólido, com
+																			exceção de gotas ou xaropes de vitaminas, minerais e
+																			/ ou medicamentos</td>
+																	</tr>
+																	<tr>
+																		<td>Materno Predominante</td>
+																		<td align="justify">Quando o lactente recebe,
+																			além do leite materno, água ou bebidas à base de água
+																			, como sucos de frutas e chás</td>
+																	</tr>
+
+																	<tr>
+																		<td>Complementar</td>
+																		<td align="justify">São quaisquer alimentos que
+																			não o leite humano oferecidos à criança amamentada.
+																			Alimentos de transição, antigamente chamados de
+																			alimentos de desmame, se referem aos alimentos
+																			complementares escialmente preparados para crianças
+																			pequenas, até que elas passem a receber os alimentos
+																			consumidos pela família. O termo "alimentos de
+																			desmame" deve ser evitado ,pois pode dar a falsa
+																			impressão de que eles são usados para provocar o
+																			desmame e não para complementar o leite materno</td>
+																	</tr>
+
+																</tbody>
+															</table>
+
+														</div>
+													</div>
+												</div>
+											</div>
+											<button type="button" class="btn btn-default"
+												style="margin-left: 491px;" data-dismiss="modal">Fechar</button>
+										</div>
+
+										<div class="modal-footer"></div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+					</div>
+
+				</p:tab>
+
+				<p:tab title="Calendário Básico de Vacinação da Criança">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th><h4 style="margin-top: -8px;">Idade</h4></th>
+								<th><h4 style="margin-top: -8px;">Vacina</h4></th>
+							</tr>
+							<hr></hr>
+						</thead>
+
+						<tbody>
+
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">Ao
+									nascer</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_nascimento_bcg}" />
+									<p:outputLabel value="BCG" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_nascimento_hepatite_b}" />
+									<p:outputLabel value="Hepatite B" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">2 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_pneumococica_conjugada}" />
+									<p:outputLabel value="Pneumocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_dpt}" />
+									<p:outputLabel value="DPT" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_polio}" />
+									<p:outputLabel value="Polio" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_hib}" />
+									<p:outputLabel value="HIB" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_rotavirus}" />
+									<p:outputLabel value="Rotavirus" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2meses_hepatite_b}" />
+									<p:outputLabel value="Hepatite B" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">3 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_3meses_meningococica_conjugada}" />
+									<p:outputLabel value="Meningocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">4 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4meses_pneumococica_conjugada}" />
+									<p:outputLabel value="Pneumocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4meses_dpt}" />
+									<p:outputLabel value="DPT" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4meses_polio}" />
+									<p:outputLabel value="Polio" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4meses_hib}" />
+									<p:outputLabel value="HIB" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4meses_rotavirus}" />
+									<p:outputLabel value="Rotavirus" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">5 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_5meses_meningicicuca_conjugada}" />
+									<p:outputLabel value="Meningocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">6 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_pneumococica_conjugada}" />
+									<p:outputLabel value="Pneumocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_dpt}" />
+									<p:outputLabel value="DPT" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_polio}" />
+									<p:outputLabel value="Polio" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_hib}" />
+									<p:outputLabel value="HIB" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_influenza}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_hepatite_b}" />
+									<p:outputLabel value="Hepatite B" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_6meses_rotavirus}" />
+									<p:outputLabel value="Rotavirus" style="margin-left: 4px;" /></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">7 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_7meses_influenza}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">9 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_9meses_febre_amarela}" />
+									<p:outputLabel value="Febre Amarela" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">12 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_12meses_pneumococica_conjugada}" />
+									<p:outputLabel value="Pneumocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_12meses_triviral}" />
+									<p:outputLabel value="Triviral" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_12meses_hepatite_a}" />
+									<p:outputLabel value="Hepatite A" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_12meses_varicela}" />
+									<p:outputLabel value="Varicela" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">15 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_meningococica_c}" />
+									<p:outputLabel value="Meningocócica C"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_dpt}" />
+									<p:outputLabel value="DPT" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_polio}" />
+									<p:outputLabel value="Polio" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_hib}" />
+									<p:outputLabel value="HIB" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_varicela}" />
+									<p:outputLabel value="Varicela" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_15meses_triviral}" />
+									<p:outputLabel value="Triviral" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">18 meses</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_18meses_hepatite_a}" />
+									<p:outputLabel value="Hepatite A" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td rowspan="2"
+									style="border-top: 1px solid rgb(51, 51, 51); vertical-align: middle;">Menor
+									de 1 ano</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_meq1a_meningo_b_recomb_1dose}" />
+									<p:outputLabel value="1ª-Meningocócica
+									B"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_meq1a_meningo_b_recomb_2dose}" />
+									<p:outputLabel value="2ª-Meningocócica
+									B"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_meq1a_meningo_b_recomb_3dose}" />
+									<p:outputLabel value="3ª-Meningocócica
+									B"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_meq1a_meningo_b_recomb_reforco}" />
+									<p:outputLabel value="Reforço" style="margin-left: 4px;" /> <!-- <div class="input-group"
+										style="margin-top: -28px; margin-left: 157px; margin-right: -122px;">
+										<p:calendar mask="99/99/9999" locale="pt_BR" navigator="true" id="dataInicial" pattern="dd/MM/yyyy"
+											style="margin-left: -80px;" size="7"
+											onkeypress="return desabilitaEscrita(event)"
+											pt:placeholder="__/__/____"
+											value="#{formulario0a4Controller.beneficiarioVacina.vacina_meq1a_meningo_b_recomb_reforco_data}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy"
+												timeZone="America/Sao_Paulo" />
+										</p:calendar>
+									</div> --></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="(Recombinante)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="(Recombinante)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="(Recombinante)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="border-top: 1px solid rgb(51, 51, 51); vertical-align: middle;">Maior
+									de 1 ano</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_maq1a_meningo_b_recomb_1dose}" />
+									<p:outputLabel value="1ª-Meningocócica
+									B"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_maq1a_meningo_b_recomb_2dose}" />
+									<p:outputLabel value="2ª-Meningocócica
+									B"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="(Recombinante)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="(Recombinante)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">2 anos</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_2anos_influenzae}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">3 anos</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_3anos_influenzae}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">4 anos</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4anos_influenzae}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);">4 - 5
+									anos</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4_5anos_meningococica_conjugada}" />
+									<p:outputLabel value="Meningocócica Conjugada"
+										style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4_5anos_dpt}" />
+									<p:outputLabel value="DPT" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4_5anos_polio}" />
+									<p:outputLabel value="Polio" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_4_5anos_influenzae}" />
+									<p:outputLabel value="Influenza" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+							<tr>
+								<td rowspan="2"
+									style="border-top: 1px solid rgb(51, 51, 51); vertical-align: middle;">Outras</td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioVacina.vacina_a0_4_meningo_tetra_acwy}" />
+									<p:outputLabel value="Meningocócica" style="margin-left: 4px;" /></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+
+							<tr id="testeTR">
+								<td style="border-top: 1px solid rgb(255, 255, 255);"><p:outputLabel
+										style="margin-left: 22px;" value="Tetravalente (ACWY)"></p:outputLabel></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+								<td style="border-top: 1px solid rgb(255, 255, 255);"></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</p:tab>
+
+				<p:tab
+					title="Marcos do Desenvolvimento da Criança - Baseado no Teste de Desenvolvimento de Denver">
+
+					<div id="Idenver" style="margin-top: 5px;">
+
+						<h:outputText
+							value="Estão habilitadas apenas as 'Verificações' correspondentes a idade do beneficiário." />
+
+					</div>
+
+					<table class="table">
+						<thead>
+
+							<tr>
+								<th><h4 style="margin-top: -8px;">Idade</h4></th>
+								<th><h4 style="margin-top: -8px;">Desenvolvimento</h4></th>
+								<th><h4 style="margin-top: -8px;">Verificação</h4></th>
+							</tr>
+							<hr></hr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">15
+									dias a 1 mês</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="De bruços ergue a cabeça." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="brucosErgueCabeca"
+										disabled="#{formulario0a4Controller.lgDenver_15d_1m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_15d_1m_brucos_ergue_cabeca}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NÃO" />
+									</p:selectOneRadio></td>
+
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Fixa o rosto da mãe." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="fixaRostoMae"
+										disabled="#{formulario0a4Controller.lgDenver_15d_1m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_15d_1m_fixa_rosto_mae}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">1
+									mês a 2 meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Sorriso Social" style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="sorrisoSocial"
+										disabled="#{formulario0a4Controller.lgDenver_1_2m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_1_2m_sorriso_social}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Mãos abertas a maior parte do tempo."
+										style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="maosAbertasMaiorParteTempo"
+										disabled="#{formulario0a4Controller.lgDenver_1_2m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_1_2m_maos_abertas}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">2
+									a 4 Meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Balbucia" style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="balbucia"
+										disabled="#{formulario0a4Controller.lgDenver_2_4m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_2_4m_balbucia}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Leva objetos na boca." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="levaObjetosboca"
+										disabled="#{formulario0a4Controller.lgDenver_2_4m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_2_4m_leva_objetos_boca}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="3"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">4
+									a 6 Meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Vira a cabeça na direção do som."
+										style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="viraCabecaDirecaoSom"
+										disabled="#{formulario0a4Controller.lgDenver_4_6m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4_6m_vira_cabeca_deracao_som}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Olha para objetos." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="olhaObjetos"
+										disabled="#{formulario0a4Controller.lgDenver_4_6m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4_6m_olha_objetos}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Gosta de brincar." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="gostaBrincar"
+										disabled="#{formulario0a4Controller.lgDenver_4_6m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4_6m_gosta_brincar}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">6
+									a 9 Meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Senta sozinha." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="sentaSozinha"
+										disabled="#{formulario0a4Controller.lgDenver_6_9m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_6_9m_senta_sozinha}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Arrasta ou engatinha." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="arrastaEngatinha"
+										disabled="#{formulario0a4Controller.lgDenver_6_9m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_6_9m_arrasta_engatinha}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">9
+									a 12 Meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Faz imitações." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="fazImitacoes"
+										disabled="#{formulario0a4Controller.lgDenver_9_12m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_9_12m_faz_imitacoes}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Engatinha ou anda com apoio." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="engatinhaAndaApoio"
+										disabled="#{formulario0a4Controller.lgDenver_9_12m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_9_12m_engatinha_anda_apoio}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">12
+									a 18 Meses</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Fala algumas palavras." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="FalaAlumasPalavras"
+										disabled="#{formulario0a4Controller.lgDenver_12_18m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_12_18m_fala_algumas_palavras}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Anda sozinho." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="andaSozinho"
+										disabled="#{formulario0a4Controller.lgDenver_12_18m}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_12_18m_anda_sozinho}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">18
+									meses a 2 anos</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Aceita companhia de outra criança."
+										style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="aceitaCompanhiaOutraCrianca"
+										disabled="#{formulario0a4Controller.lgDenver_18m_2a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_18m_2a_aceita_companhia_crianca}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Corre e sobe degraus." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="correSobeDegraus"
+										disabled="#{formulario0a4Controller.lgDenver_18m_2a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_18m_2a_corre_sobe_degraus}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+
+							<tr>
+								<td rowspan="2"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">2
+									a 4 anos</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Usa plurais." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="usaPlurais"
+										disabled="#{formulario0a4Controller.lgDenver_2a_4a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_2a_4a_usa_plurais}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Põe sapato sozinho." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="poeSapatoSozinho"
+										disabled="#{formulario0a4Controller.lgDenver_2a_4a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_2a_4a_poe_sapato_sozinho}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+
+							<tr>
+								<td rowspan="4"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);">4
+									a 5 anos</td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Veste-se sob supervisão." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="vesteSeSobSupervisao"
+										disabled="#{formulario0a4Controller.lgDenver_4a_5a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4a_5a_veste_sob_supervisao}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Reconhece cores." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="reconheceCores"
+										disabled="#{formulario0a4Controller.lgDenver_4a_5a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4a_5a_reconhece_cores}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Copia." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="copia"
+										disabled="#{formulario0a4Controller.lgDenver_4a_5a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4a_5a_copia}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:outputLabel
+										value="Desenha homem 6 partes." style="margin-left: 4px;" /></td>
+
+								<td style="border-top: 1px solid rgb(51, 51, 51);"><p:selectOneRadio
+										id="desenhaHomem6Partes"
+										disabled="#{formulario0a4Controller.lgDenver_4a_5a}"
+										value="#{formulario0a4Controller.beneficiarioConsulta.denver_4a_5a_desenha_homem_6_partes}"
+										style="margin-top: -1px; margin-left: 1px; width: 113px; width: 113px;">
+										<f:selectItem itemLabel="Sim" itemValue="SIM" />
+										<f:selectItem itemLabel="Não" itemValue="NAO" />
+									</p:selectOneRadio></td>
+							</tr>
+
+							<tr>
+								<td rowspan="4"
+									style="vertical-align: middle; border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+								<td style="border-top: 1px solid rgb(51, 51, 51);"></td>
+							</tr>
+						</tbody>
+					</table>
+
+
+				</p:tab>
+
+				<p:tab title="Intercorrências">
+
+					<div id="IprimeiraLinhaIntercorrencia"
+						style="margin-top: 53px; margin-left: -85px;">
+
+						<div id="Iintercorrencia1" class="form-group"
+							style="margin-top: -25px; margin-left: 70px;">
+
+							<div style="margin-top: 29px; margin-left: 2px;">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioConsulta.intercorrenciaCheck1}"
+										style="margin-left: 18px;">
+										<p:ajax
+											update="botaoModalCid1,botaoModalPatologia1,cidIntercorrencia1,patologiaIntercorrencia1"
+											listener="#{formulario0a4Controller.validaCidIntercorrenciaCheck1}"></p:ajax>
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Sim"
+										style="margin-left: 4px; margin-top: 2px;" />
+								</h:panelGrid>
+							</div>
+						</div>
+
+						<div id="IcidIntercorrencia1"
+							style="width: -22%; margin-top: -62px; margin-left: 170px;">
+							<p:outputLabel value="CID-1:" for="cidIntercorrencia1"
+								style="margin-top: 25px; margin-left: -17px;" />
+							<p:inputText id="cidIntercorrencia1" disabled="true"
+								style="margin-top: -27px; margin-left: 10px; width: 57px;"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia1.cd_cid}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalCid1"
+							style="margin-top: -28px; margin-left: 262px;">
+
+							<p:commandButton id="botaoModalCid1" icon="ui-icon-search"
+								type="button" onclick="PF('modalCid1').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck1()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalCid1" minHeight="40" modal="true">
+							<p:outputLabel value="CID-1:" for="cidIntercorrencia1Modal" />
+							<p:autoComplete id="cidIntercorrencia1Modal"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia1.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+								<p:ajax update="patologiaIntercorrencia1,cidIntercorrencia1"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Intercorrencia1()}" />
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalCid1.hide(); return false;" />
+						</p:dialog>
+
+						<div id="IpatologiaIntercorrencia1"
+							style="width: -22%; margin-top: -53px; margin-left: 560px;">
+							<p:outputLabel value="Patologia-1:"
+								for="patologiaIntercorrencia1"
+								style="margin-top: 31px; margin-left: -239px;" />
+							<p:inputText id="patologiaIntercorrencia1" disabled="true"
+								style="margin-top: -27px; margin-left: 10px; width: 400px;"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia1.descricao_doenca}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalPatologia1"
+							style="margin-top: -28px; margin-left: 812px;">
+
+							<p:commandButton id="botaoModalPatologia1" icon="ui-icon-search"
+								type="button" onclick="PF('modalPatologia1').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck1()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalPatologia1" minHeight="40" modal="true">
+							<p:outputLabel value="Patologia-1:"
+								for="patologiaIntercorrencia1Modal" />
+							<p:autoComplete id="patologiaIntercorrencia1Modal"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia1.descricao_doenca}">
+								<p:ajax update="cidIntercorrencia1,patologiaIntercorrencia1"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Patologia1()}"></p:ajax>
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalPatologia1.hide(); return false;" />
+						</p:dialog>
+
+					</div>
+
+					<div id="IsegundaLinhaIntercorrencia"
+						style="margin-top: 63px; margin-left: -85px;">
+
+						<div id="Iintercorrencia2" class="form-group"
+							style="margin-top: -25px; margin-left: 70px;">
+
+							<div style="margin-top: 29px; margin-left: 2px;">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioConsulta.intercorrenciaCheck2}"
+										style="margin-left: 18px;">
+										<p:ajax
+											update="botaoModalCid2,botaoModalPatologia2,cidIntercorrencia2,patologiaIntercorrencia2"
+											listener="#{formulario0a4Controller.validaCidIntercorrenciaCheck2}"></p:ajax>
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Sim"
+										style="margin-left: 4px; margin-top: 2px;" />
+								</h:panelGrid>
+							</div>
+						</div>
+
+						<div id="IcidIntercorrencia2"
+							style="width: -22%; margin-top: -58px; margin-left: 170px;">
+							<p:outputLabel value="CID-2:" for="cidIntercorrencia2"
+								style="margin-top: 20px; margin-left: -17px;" />
+							<p:inputText id="cidIntercorrencia2" disabled="true"
+								style="margin-top: -27px;  margin-left: 10px; width: 57px;"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia2.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalCid2"
+							style="margin-top: -28px; margin-left: 262px;">
+
+							<p:commandButton id="botaoModalCid2" icon="ui-icon-search"
+								type="button" onclick="PF('modalCid2').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck2()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalCid2" minHeight="40" modal="true">
+							<p:outputLabel value="CID-2:" for="cidIntercorrencia2Modal" />
+							<p:autoComplete id="cidIntercorrencia2Modal"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia2.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+								<p:ajax update="patologiaIntercorrencia2,cidIntercorrencia2"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Intercorrencia2()}" />
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalCid2.hide(); return false;" />
+						</p:dialog>
+
+						<div id="IpatologiaIntercorrencia2"
+							style="width: -22%; margin-top: -53px; margin-left: 463px;">
+							<p:outputLabel value="Patologia-2:"
+								for="patologiaIntercorrencia2"
+								style="margin-top: 31px; margin-left: -142px;" />
+							<p:inputText id="patologiaIntercorrencia2" disabled="true"
+								style="margin-top: -27px; margin-left: 10px; width: 400px;"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia2.descricao_doenca}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalPatologia2"
+							style="margin-top: -28px; margin-left: 812px;">
+
+							<p:commandButton id="botaoModalPatologia2" icon="ui-icon-search"
+								type="button" onclick="PF('modalPatologia2').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck2()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalPatologia2" minHeight="40" modal="true">
+							<p:outputLabel value="Patologia-2:"
+								for="patologiaIntercorrencia2Modal" />
+							<p:autoComplete id="patologiaIntercorrencia2Modal"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia2.descricao_doenca}">
+								<p:ajax update="cidIntercorrencia2,patologiaIntercorrencia2"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Patologia2()}"></p:ajax>
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalPatologia2.hide(); return false;" />
+						</p:dialog>
+
+					</div>
+
+					<div id="IterceiraLinhaIntercorrencia"
+						style="margin-top: 65px; margin-left: -85px;">
+
+						<div id="Iintercorrencia3" class="form-group"
+							style="margin-top: -25px; margin-left: 70px;">
+
+							<div style="margin-top: 29px; margin-left: 2px;">
+								<h:panelGrid columns="2" style="margin-bottom:10px"
+									cellpadding="5">
+									<p:selectBooleanCheckbox
+										value="#{formulario0a4Controller.beneficiarioConsulta.intercorrenciaCheck3}"
+										style="margin-left: 18px;">
+										<p:ajax
+											update="botaoModalCid3,botaoModalPatologia3,cidIntercorrencia3,patologiaIntercorrencia3"
+											listener="#{formulario0a4Controller.validaCidIntercorrenciaCheck3}"></p:ajax>
+									</p:selectBooleanCheckbox>
+									<p:outputLabel value="Sim"
+										style="margin-left: 4px; margin-top: 2px;" />
+								</h:panelGrid>
+							</div>
+						</div>
+
+						<div id="IcidIntercorrencia3"
+							style="width: -22%; margin-top: -48px; margin-left: 170px;">
+							<p:outputLabel value="CID-3:" for="cidIntercorrencia3"
+								style="margin-top: 10px; margin-left: -17px;" />
+							<p:inputText id="cidIntercorrencia3" disabled="true"
+								style="margin-top: -27px;  margin-left: 10px; width: 57px;"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia3.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalCid3"
+							style="margin-top: -28px; margin-left: 262px;">
+
+							<p:commandButton id="botaoModalCid3" icon="ui-icon-search"
+								type="button" onclick="PF('modalCid3').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck3()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalCid3" minHeight="40" modal="true">
+							<p:outputLabel value="CID-3:" for="cidIntercorrencia3Modal" />
+							<p:autoComplete id="cidIntercorrencia3Modal"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia3.cd_cid}"
+								completeMethod="#{formulario0a4Controller.completeText}">
+								<p:ajax update="patologiaIntercorrencia3,cidIntercorrencia3"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Intercorrencia3()}" />
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalCid3.hide(); return false;" />
+						</p:dialog>
+
+						<div id="IpatologiaIntercorrencia3"
+							style="width: -22%; margin-top: -53px; margin-left: 463px;">
+							<p:outputLabel value="Patologia-3:"
+								for="patologiaIntercorrencia3"
+								style="margin-top: 31px; margin-left: -142px;" />
+							<p:inputText id="patologiaIntercorrencia3" disabled="true"
+								style="margin-top: -27px; margin-left: 10px; width: 400px;"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia3.descricao_doenca}">
+							</p:inputText>
+						</div>
+
+						<div id="IbotaoModalPatologia3"
+							style="margin-top: -28px; margin-left: 812px;">
+
+							<p:commandButton id="botaoModalPatologia3" icon="ui-icon-search"
+								type="button" onclick="PF('modalPatologia3').show();"
+								disabled="#{formulario0a4Controller.validaCidIntercorrenciaCheck3()}" />
+
+						</div>
+
+						<p:dialog widgetVar="modalPatologia3" minHeight="40" modal="true">
+							<p:outputLabel value="Patologia-3:"
+								for="patologiaIntercorrencia3Modal" />
+							<p:autoComplete id="patologiaIntercorrencia3Modal"
+								completeMethod="#{formulario0a4Controller.completeTextPatologia}"
+								value="#{formulario0a4Controller.dzCid10Intercorrencia3.descricao_doenca}">
+								<p:ajax update="cidIntercorrencia3,patologiaIntercorrencia3"
+									event="blur"
+									listener="#{formulario0a4Controller.buscarDzCid10Patologia3()}"></p:ajax>
+							</p:autoComplete>
+							<p:commandButton value="Ok"
+								onclick="modalPatologia3.hide(); return false;" />
+						</p:dialog>
+
+					</div>
+
+				</p:tab>
+
+			</p:accordionPanel>
+
+			<p:commandButton class="btn btn-default btn-sm" value="Voltar"
+				style="margin-left: 32px;margin-top: 1%;" ajax="true"
+				icon="	ui-icon-arrowreturnthick-1-w" process="@this" update="@form"
+				action="#{formulario0a4Controller.redirecionaPagina()}">
+			</p:commandButton>
+
+			<div id="botaoSalvar" style="margin-left: 1211px; margin-top: -36px;">
+
+				<p:commandButton class="btn btn-success btn-sm" value="Salvar"
+					pt:data-toggle="modal" onclick="ImodalSalvar" ajax="true"
+					icon="ui-icon-circle-check"
+					action="#{formulario0a4Controller.salvar()}">
+				</p:commandButton>
+
+			</div>
+
+		</h:form>
+
+		<h:form>
+
+			<div id="botaoCancelar"
+				style="margin-left: 1095px; margin-top: -36px;">
+
+				<p:commandButton class="btn btn-danger btn-sm" value="Cancelar"
+					ajax="false" icon="ui-icon-closethick" process="@none"
+					action="#{formulario0a4Controller.refreshCancelar()}">
+				</p:commandButton>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
